@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import './App.css';
 import Transactions from './components/Transactions'
 import Operations from './components/Operations'
+import axios from 'axios'
 
 class App extends Component {
 
@@ -10,10 +11,7 @@ class App extends Component {
     super()
     this.state = {
       transactions: [
-        { amount: 3200, vendor: "Elevation", category: "Salary" },
-        { amount: -7, vendor: "Runescape", category: "Entertainment" },
-        { amount: -20, vendor: "Subway", category: "Food" },
-        { amount: -98, vendor: "La Baguetterie", category: "Food" }
+        
       ]
       
     }
@@ -53,8 +51,19 @@ class App extends Component {
     })
   }
   
+  async getTransactions() {
+    return axios.get("http://localhost:4200/transactions")
+  }
+
+  async componentDidMount() {
+    const response = await this.getTransactions()
+    console.log(response)
+    this.setState({ transactions: response.data })
+  }
+
 
   render() {
+    
     return (
       <div className="App">
         <div id="operations"><Operations addDeposite={this.addDeposite} addWithdraw={this.addWithdraw}/></div>
