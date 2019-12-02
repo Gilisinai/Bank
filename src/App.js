@@ -11,9 +11,9 @@ class App extends Component {
     super()
     this.state = {
       transactions: [
-        
+
       ]
-      
+
     }
 
   }
@@ -27,30 +27,45 @@ class App extends Component {
     return sum
   }
 
-  addDeposite = (amount , vendor, category) => {
-    let transactions = [...this.state.transactions]
-   transactions.push({amount: parseInt(amount), vendor: vendor, category: category})
-    this.setState({
-      transactions
-    })
+  addDeposite = (amount, vendor, category) => {
+
+    axios.post(`http://localhost:4200/transaction`, { amount: parseInt(amount), vendor: vendor, category: category.toLowerCase() })
+      .then(res => {
+        console.log(res.data);
+        let transactions = [...this.state.transactions]
+        transactions.push(res.data)
+        this.setState({
+          transactions
+        })
+      })
   }
 
-  addWithdraw = (amount , vendor, category) => {
-    let transactions = [...this.state.transactions]
-   transactions.push({amount: -parseInt(amount), vendor: vendor, category: category})
-    this.setState({
-      transactions
-    })
+  addWithdraw = (amount, vendor, category) => {
+    axios.post(`http://localhost:4200/transaction`, { amount: -parseInt(amount), vendor: vendor, category: category.toLowerCase() })
+      .then(res => {
+        console.log(res.data);
+        let transactions = [...this.state.transactions]
+        transactions.push(res.data)
+        this.setState({
+          transactions
+        })
+      })
   }
 
   deleteTransaction = (i) => {
-    let transactions = [...this.state.transactions]
-    transactions.splice(i,1)
-    this.setState({
-      transactions
-    })
+    axios.delete(`http://localhost:4200/transaction`)
+      .then(res => {
+        console.log(res);
+        console.log(res.data);
+        let transactions = [...this.state.transactions]
+        transactions.splice(i, 1)
+        this.setState({
+          transactions
+        })
+      })
+
   }
-  
+
   async getTransactions() {
     return axios.get("http://localhost:4200/transactions")
   }
@@ -63,10 +78,10 @@ class App extends Component {
 
 
   render() {
-    
+
     return (
       <div className="App">
-        <div id="operations"><Operations addDeposite={this.addDeposite} addWithdraw={this.addWithdraw}/></div>
+        <div id="operations"><Operations addDeposite={this.addDeposite} addWithdraw={this.addWithdraw} /></div>
         <div id="balance">Balance: {this.calculateBalance()}</div>
         <Transactions transactions={this.state.transactions} deleteTransaction={this.deleteTransaction} />
       </div>

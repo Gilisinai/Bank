@@ -13,7 +13,7 @@ router.get('/transactions', function (req, res) {
 router.post('/transaction',async function (req, res) {
     newTransaction = new Transaction(req.body)
     await newTransaction.save()
-    res.send("transaction saved to db")
+    res.send(newTransaction)
 })
 
 router.delete('/transaction', function (req, res) {
