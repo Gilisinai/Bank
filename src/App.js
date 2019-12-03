@@ -1,18 +1,18 @@
 
 import React, { Component } from 'react';
 import './App.css';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import Transactions from './components/Transactions'
 import Operations from './components/Operations'
 import axios from 'axios'
+import Category from './components/Category'
 
 class App extends Component {
 
   constructor() {
     super()
     this.state = {
-      transactions: [
-
-      ]
+      transactions: []
 
     }
 
@@ -52,17 +52,9 @@ class App extends Component {
       })
   }
 
-  deleteTransaction = (i) => {
-    axios.delete(`http://localhost:4200/transaction`)
-      .then(res => {
-        console.log(res);
-        console.log(res.data);
-        let transactions = [...this.state.transactions]
-        transactions.splice(i, 1)
-        this.setState({
-          transactions
-        })
-      })
+  deleteTransaction = async (id) => {
+    await axios.delete(`http://localhost:4200/transaction/${id}`)
+    this.componentDidMount()
 
   }
 
@@ -72,7 +64,6 @@ class App extends Component {
 
   async componentDidMount() {
     const response = await this.getTransactions()
-    console.log(response)
     this.setState({ transactions: response.data })
   }
 
@@ -80,11 +71,22 @@ class App extends Component {
   render() {
 
     return (
-      <div className="App">
-        <div id="operations"><Operations addDeposite={this.addDeposite} addWithdraw={this.addWithdraw} /></div>
-        <div id="balance">Balance: {this.calculateBalance()}</div>
-        <Transactions transactions={this.state.transactions} deleteTransaction={this.deleteTransaction} />
-      </div>
+      <Router>
+        <div className="App">
+          <div className="main-links">
+            <Link to="/">Overview</Link>
+            <Link to="/add">Add Transaction</Link>
+            <Link to="/category">By Category</Link>
+          </div>
+
+          <Route path="/add" exact component={Operations}><div id="operations"><Operations addDeposite={this.addDeposite} addWithdraw={this.addWithdraw} /></div></Route>
+
+          <Route path="/" exact component={Transactions}>
+            <div id="balance">Balance: {this.calculateBalance()}</div>
+            <Transactions transactions={this.state.transactions} deleteTransaction={this.deleteTransaction} /></Route>
+          <Route path="/category"> <Category transactions={this.state.transactions} /></Route>
+        </div>
+      </Router>
     );
 
   }

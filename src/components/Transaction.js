@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom'
 
 class Transaction extends Component {
 
 
     deleteTransaction = () => {
-        this.props.deleteTransaction(this.props.id)
+        this.props.deleteTransaction(this.props.data._id)
     }
 
     render() {

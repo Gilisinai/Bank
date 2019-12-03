@@ -16,16 +16,10 @@ router.post('/transaction',async function (req, res) {
     res.send(newTransaction)
 })
 
-router.delete('/transaction', function (req, res) {
-    let amount = req.body.amount
-    let category = req.body.category
-    let vendor = req.body.vendor
-
-    Transaction.findOneAndDelete({ 
-        amount: amount,
-        category: category,
-        vendor: vendor
-    }).then(res.end())
+router.delete('/transaction/:id',async function (req, res) {
+   
+    await Transaction.findByIdAndDelete({_id:req.params.id})
+    res.send("success")
 
 
 })
