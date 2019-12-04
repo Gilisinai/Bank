@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import Transaction from './Transaction'
-
+import '../styles/transactions.css'
 class Transactions extends Component {
     
     render() {
-        console.log(this.props.transactions)
+        
         return(
-            <div className="transactions">
+            <div className="">
                 {this.props.transactions.map( (t) =>  
-                <div key={t._id}> <Transaction data={t}  deleteTransaction={this.props.deleteTransaction}/> </div>
+                <div className="transactions" key={t._id}> <Transaction data={t}  deleteTransaction={this.props.deleteTransaction}/> </div>
                     )}
             </div>
         )

@@ -1,0 +1,16 @@
+.category-head{
+    text-align: left;
+    padding-left: 10px;
+    margin:10px;
+}
+.expense{
+    background-color: white;
+    margin: 10px 7vw;
+    border-radius: 5px;
+    box-shadow: 1px 4px 5px rgba(0, 0, 0, 0.25);
+    padding:10px
+}
+
+.category-container{
+    overflow: scroll;
+}

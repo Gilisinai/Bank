@@ -1,22 +1,88 @@
 .App {
   text-align: center;
+  height: 100vh;
+  display: grid;
+  grid-template-areas:
+  "h""h" "m" "m" "m" "m" "m""m""m""m""m""l" ;
+  background-color:rgb(229, 226, 226);
 }
 
-.App-logo {
-  height: 40vmin;
-}
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
 
 .App-link {
   color: #09d3ac;
+}
+
+.red{
+  color:#e74040
+}
+
+.green{
+  color: rgb(53, 182, 53)
+}
+
+.header{
+  color:white;
+  background-color: #f75a6d;
+  grid-area: h;
+  max-height: 100px;
+}
+
+a{
+  text-decoration: none;
+  color:white;
+  margin: 5px;
+}
+
+#balance{
+  
+  background-color: white;
+  margin: 5vw 10vw;
+  box-shadow: 1px 4px 5px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  padding: 10px
+}
+
+.footer{
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  background-color: #e29261;
+  grid-area: l;
+  max-height: 130px;
+}
+
+.main-routes{
+  grid-area: m
+}
+#operations{
+  grid-area: m
+}
+
+.plus{
+  
+  background-color: transparent;
+  font-size: 70px;
+  position: relative;
+  top:15px;
+  color: #e29261;
+  z-index: 1;
+  border:none;
+  margin: 0 auto;
+}
+
+.white{
+  margin: 0 auto;
+  height:100px;
+  background-color:rgb(229, 226, 226);
+  position: relative;
+  bottom: 50px;
+  border-radius: 50%;
+
+  
+}
+
+.feature{
+  padding-top:20px;
+  font-size: 50px;
+  
 }

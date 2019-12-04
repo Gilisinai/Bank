@@ -1,4 +1,10 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
+import SimpleSnackbar from './Snackbar'
+import { Snackbar } from '@material-ui/core'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPlus , faMinus } from '@fortawesome/free-solid-svg-icons'
+import '../styles/operations.css'
 
 class Operations extends Component {
 
@@ -7,12 +13,14 @@ class Operations extends Component {
         this.state = {
             amount: 0,
             vendor: "",
-            category: ""
+            category: "",
+            date: ""
         }
         this.updateText = this.updateText.bind(this)
     }
     addDeposite = () => {
         this.props.addDeposite(this.state.amount, this.state.vendor, this.state.category)
+        
     }
 
     addWithdraw = () => {
@@ -29,21 +37,29 @@ class Operations extends Component {
         });
     }
 
+
+
+
+
+
     render() {
-        
+
         return (
             <div className="operations">
-
-            <input type="number" name="amount" placeholder="Amount" onChange={this.updateText}/>
-            <input type="text" name="vendor" placeholder="Vendor" onChange={this.updateText}/>
-            <input type="text" name="category" placeholder="Category" onChange={this.updateText}/>
-
-            <button className="deposite" onClick={this.addDeposite}>Deposite</button>
-            <button className="Withdraw" onClick={this.addWithdraw}>Withdraw</button>
-
+                
+                <div>
+                <input type="number"  name="amount" placeholder="Amount" onChange={this.updateText} />
+                </div> <div>
+                <input type="text"  name="vendor" placeholder="Vendor" onChange={this.updateText} />
+                </div> <div>
+                <input type="text"  name="category" placeholder="Category" onChange={this.updateText} />
+                </div>
+                <Link to="/"><button className="expense" onClick={this.addDeposite}><FontAwesomeIcon icon={faPlus}/></button></Link>
+                <Link to="/"><button className="expense" onClick={this.addWithdraw}><FontAwesomeIcon icon={faMinus}/></button></Link>
+                
             </div>
 
-     )
+        )
     }
 }
 

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import '../styles/category.css'
 
 class Category extends Component {
 
@@ -28,12 +28,12 @@ class Category extends Component {
     render() {
         let category = this.sortByCategory()
         return (
-            <div>
+            <div className="category-container">
                 {category.map( (m,i) => <div key ={i}>
-                    <div>
-                   <h3> {m[0].category} </h3>
+                    <div className="category-head">
+                   <h3 > {m[0].category} </h3>
                     </div>
-                <div key={i}> {m.map((m,i) => <div key={i}>{m.vendor} {m.amount} </div>)} </div>
+                <div key={i}> {m.map((m,i) => <div className="expense" key={i}>{m.vendor} {m.amount} {m.date} </div>)} </div>
                     </div>)}
             </div>
         )
