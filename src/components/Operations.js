@@ -48,14 +48,14 @@ class Operations extends Component {
             <div className="operations">
                 
                 <div>
-                <input type="number"  name="amount" placeholder="Amount" onChange={this.updateText} />
+                <input type="number" className="input"  name="amount" placeholder="Amount" onChange={this.updateText} />
                 </div> <div>
-                <input type="text"  name="vendor" placeholder="Vendor" onChange={this.updateText} />
+                <input type="text" className="input"  name="vendor" placeholder="Vendor" onChange={this.updateText} />
                 </div> <div>
-                <input type="text"  name="category" placeholder="Category" onChange={this.updateText} />
+                <input type="text" className="input"  name="category" placeholder="Category" onChange={this.updateText} />
                 </div>
-                <Link to="/"><button className="expense" onClick={this.addDeposite}><FontAwesomeIcon icon={faPlus}/></button></Link>
-                <Link to="/"><button className="expense" onClick={this.addWithdraw}><FontAwesomeIcon icon={faMinus}/></button></Link>
+                <Link to="/"><button className="expensebtn deposite" onClick={this.addDeposite}>Deposite</button></Link>
+                <Link to="/"><button className="expensebtn withdraw" onClick={this.addWithdraw}>Withdraw</button></Link>
                 
             </div>
 

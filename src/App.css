@@ -3,7 +3,7 @@
   height: 100vh;
   display: grid;
   grid-template-areas:
-  "h""h" "m" "m" "m" "m" "m""m""m""m""m""l" ;
+  "h" "m""m" "m""m" "m""m" "m""m" "m""m" "m""m" "m""m""l" ;
   background-color:rgb(229, 226, 226);
 }
 
@@ -25,7 +25,7 @@
   color:white;
   background-color: #f75a6d;
   grid-area: h;
-  max-height: 100px;
+  /* max-height: 100px; */
 }
 
 a{
@@ -37,7 +37,7 @@ a{
 #balance{
   
   background-color: white;
-  margin: 5vw 10vw;
+  margin: 8vw 10vw;
   box-shadow: 1px 4px 5px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
   padding: 10px
@@ -48,7 +48,7 @@ a{
   grid-template-columns: repeat(3,1fr);
   background-color: #e29261;
   grid-area: l;
-  max-height: 130px;
+  /* max-height: 100px; */
 }
 
 .main-routes{

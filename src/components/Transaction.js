@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Moment from 'react-moment';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash } from '@fortawesome/free-solid-svg-icons'
-
+import '../styles/transaction.css'
 class Transaction extends Component {
 
 
@@ -12,9 +12,22 @@ class Transaction extends Component {
 
     render() {
         return (
-            <div>
-            {this.props.data.vendor} {this.props.data.amount}  {this.props.data.category} <Moment format="DD.MM.YY">{this.props.data.date}</Moment>
-            <button onClick={this.deleteTransaction}><FontAwesomeIcon icon={faTrash}/></button>
+            <div className="transaction">
+                <div>
+                    {this.props.data.vendor}
+                </div>
+                <div>
+                    {this.props.data.amount}
+                </div>
+                <div>
+                {this.props.data.category}
+                </div>
+                <div>
+                 <Moment format="DD.MM.YY">{this.props.data.date}</Moment>
+                 </div>
+                 <div>
+                <FontAwesomeIcon onClick={this.deleteTransaction} icon={faTrash} />
+                </div>
             </div>
         )
     }
