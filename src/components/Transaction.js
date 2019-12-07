@@ -12,14 +12,14 @@ class Transaction extends Component {
 
     render() {
         return (
-            <div className="transaction">
+            <div className="transaction" >
                 <div>
                     {this.props.data.vendor}
                 </div>
-                <div>
+                <div className={this.props.data.amount> 0 ? "green" : "red"}>
                     {this.props.data.amount}
                 </div>
-                <div>
+                <div className="category-expense">
                 {this.props.data.category}
                 </div>
                 <div>

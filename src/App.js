@@ -16,13 +16,8 @@ class App extends Component {
     this.state = {
       transactions: [],
       date: ""
-
     }
-
-
   }
-
-
 
   calculateBalance = () => {
     let sum = 0
@@ -33,44 +28,34 @@ class App extends Component {
     return sum
   }
 
-  addDeposite = (amount, vendor, category) => {
-
-    axios.post(`http://localhost:4200/transaction`, { amount: parseInt(amount), vendor: vendor, category: category.toLowerCase(), date: new Date() })
-      .then(res => {
-        console.log(res.data);
+  addDeposite  = async (amount, vendor, category) => {
+    let transaction = await axios.post(`http://localhost:4200/transaction`, { amount: parseInt(amount), vendor: vendor.charAt(0).toUpperCase() + vendor.slice(1), category: category.toLowerCase(), date: new Date() })
         let transactions = [...this.state.transactions]
-        transactions.push(res.data)
-        this.setState({
-          transactions
-        })
-      })
+        transactions.unshift(transaction.data)
+        this.setState({transactions})
   }
 
-  addWithdraw = (amount, vendor, category) => {
-    axios.post(`http://localhost:4200/transaction`, { amount: -parseInt(amount), vendor: vendor, category: category.toLowerCase(), date: new Date() })
-      .then(res => {
-        console.log(res.data);
+  addWithdraw = async (amount, vendor, category) => {
+    let transaction = await axios.post(`http://localhost:4200/transaction`, { amount: -parseInt(amount), vendor: vendor.charAt(0).toUpperCase() + vendor.slice(1), category: category.toLowerCase(), date: new Date() })
         let transactions = [...this.state.transactions]
-        transactions.push(res.data)
-        this.setState({
-          transactions
-        })
-      })
+        transactions.unshift(transaction.data)
+        this.setState({transactions})  
   }
 
   deleteTransaction = async (id) => {
     await axios.delete(`http://localhost:4200/transaction/${id}`)
-    this.componentDidMount()
+    this.getTransactions()
 
   }
 
   async getTransactions() {
-    return axios.get("http://localhost:4200/transactions")
+    let transactions = await axios.get("http://localhost:4200/transactions")
+    this.setState({transactions: transactions.data}) 
+    return transactions
   }
 
   async componentDidMount() {
     const response = await this.getTransactions()
-
     this.setState({ transactions: response.data })
   }
 

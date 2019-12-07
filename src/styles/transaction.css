@@ -2,3 +2,7 @@
     display: grid;
     grid-template-columns: repeat(5,1fr);
 }
+
+.category-expense{
+    padding:2px;
+}

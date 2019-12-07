@@ -5,6 +5,7 @@
   grid-template-areas:
   "h" "m""m" "m""m" "m""m" "m""m" "m""m" "m""m" "m""m""l" ;
   background-color:rgb(229, 226, 226);
+  overflow-x: hidden;
 }
 
 
@@ -25,7 +26,7 @@
   color:white;
   background-color: #f75a6d;
   grid-area: h;
-  /* max-height: 100px; */
+  
 }
 
 a{
@@ -35,11 +36,12 @@ a{
 }
 
 #balance{
-  
+  width:250px;
   background-color: white;
-  margin: 8vw 10vw;
+  margin: 0 auto;
+  margin-top:10px;
   box-shadow: 1px 4px 5px rgba(0, 0, 0, 0.25);
-  border-radius: 10px;
+  border-radius: 2px;
   padding: 10px
 }
 
@@ -48,41 +50,34 @@ a{
   grid-template-columns: repeat(3,1fr);
   background-color: #e29261;
   grid-area: l;
-  /* max-height: 100px; */
+  
 }
 
 .main-routes{
-  grid-area: m
+  grid-area: m;
+  overflow-y:auto
 }
 #operations{
-  grid-area: m
+  grid-area: m;
+  overflow-y:auto
 }
 
 .plus{
   
   background-color: transparent;
-  font-size: 70px;
+  font-size: 65px;
   position: relative;
-  top:15px;
-  color: #e29261;
-  z-index: 1;
+  top:10px;
+  color: white;
+  
   border:none;
   margin: 0 auto;
+  margin-bottom: 5px;
 }
 
-.white{
-  margin: 0 auto;
-  height:100px;
-  background-color:rgb(229, 226, 226);
-  position: relative;
-  bottom: 50px;
-  border-radius: 50%;
-
-  
-}
 
 .feature{
-  padding-top:20px;
+  padding-top:15px;
   font-size: 50px;
   
 }
