@@ -7,39 +7,45 @@ import Operations from './components/Operations'
 import axios from 'axios'
 import Category from './components/Category'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faDollarSign, faPlusCircle , faChartLine, faAlignJustify} from '@fortawesome/free-solid-svg-icons'
+import { faDollarSign, faPlusCircle, faChartLine, faAlignJustify } from '@fortawesome/free-solid-svg-icons'
 
 class App extends Component {
 
   constructor() {
     super()
     this.state = {
-      transactions: [],
-      date: ""
+      transactions: []
+
     }
   }
 
   calculateBalance = () => {
+
     let sum = 0
     let transactions = [...this.state.transactions]
     for (let i = 0; i < transactions.length; i++) {
       sum += transactions[i].amount
     }
+
     return sum
   }
 
-  addDeposite  = async (amount, vendor, category) => {
-    let transaction = await axios.post(`http://localhost:4200/transaction`, { amount: parseInt(amount), vendor: vendor.charAt(0).toUpperCase() + vendor.slice(1), category: category.toLowerCase(), date: new Date() })
-        let transactions = [...this.state.transactions]
-        transactions.unshift(transaction.data)
-        this.setState({transactions})
+  addDeposite = async (amount, vendor, category, date) => {
+    let transaction = await axios.post(`http://localhost:4200/transaction`, { amount: parseInt(amount), vendor: vendor.charAt(0).toUpperCase() + vendor.slice(1), category: category.toLowerCase(), date: date })
+    let transactions = [...this.state.transactions]
+    transactions.unshift(transaction.data)
+    this.setState({ transactions })
   }
 
-  addWithdraw = async (amount, vendor, category) => {
-    let transaction = await axios.post(`http://localhost:4200/transaction`, { amount: -parseInt(amount), vendor: vendor.charAt(0).toUpperCase() + vendor.slice(1), category: category.toLowerCase(), date: new Date() })
-        let transactions = [...this.state.transactions]
-        transactions.unshift(transaction.data)
-        this.setState({transactions})  
+  addWithdraw = async (amount, vendor, category, date) => {
+    if (amount > this.calculateBalance()) {
+      alert("you dont have enough money")
+      return
+    }
+    let transaction = await axios.post(`http://localhost:4200/transaction`, { amount: -parseInt(amount), vendor: vendor.charAt(0).toUpperCase() + vendor.slice(1), category: category.toLowerCase(), date: date })
+    let transactions = [...this.state.transactions]
+    transactions.unshift(transaction.data)
+    this.setState({ transactions })
   }
 
   deleteTransaction = async (id) => {
@@ -50,7 +56,7 @@ class App extends Component {
 
   async getTransactions() {
     let transactions = await axios.get("http://localhost:4200/transactions")
-    this.setState({transactions: transactions.data}) 
+    this.setState({ transactions: transactions.data })
     return transactions
   }
 
@@ -69,21 +75,21 @@ class App extends Component {
             <h1>Expense Tracker</h1>
           </div>
 
-          <Route path="/add" exact component={Operations}><div id="operations"><Operations addDeposite={this.addDeposite} addWithdraw={this.addWithdraw} /></div></Route>
+          <Route path="/add" exact component={Operations}><div id="operations"><Operations addDeposite={this.addDeposite} addWithdraw={this.addWithdraw} calculateBalance={this.calculateBalance} /></div></Route>
 
-          
+
           <div className="main-routes">
             <Route path="/" exact component={Transactions}>
-            <div id="balance" >
-            
-            <h1 className={this.calculateBalance() > 500 ? "green" : "red"}> {this.calculateBalance()} <FontAwesomeIcon icon={faDollarSign} /> </h1>
-            
-          </div>
+              <div id="balance" >
+
+                <h1 className={this.calculateBalance() > 500 ? "green" : "red"}> {this.calculateBalance()} <FontAwesomeIcon icon={faDollarSign} /> </h1>
+
+              </div>
               <Transactions transactions={this.state.transactions} deleteTransaction={this.deleteTransaction} /></Route>
-            <Route path="/category"> <Category transactions={this.state.transactions} /></Route>
+            <Route path="/category"> <Category transactions={this.state.transactions} calculateBalance={this.calculateBalance} /></Route>
           </div>
           <div className="footer">
-          <div className="feature"><Link to="/"><FontAwesomeIcon icon={faAlignJustify} /></Link></div>
+            <div className="feature"><Link to="/"><FontAwesomeIcon icon={faAlignJustify} /></Link></div>
             <div className="white"><Link to="/add" ><button className="plus"><FontAwesomeIcon icon={faPlusCircle} /></button></Link>
             </div>
             <div className="feature"> <Link to="/category"><FontAwesomeIcon icon={faChartLine} /></Link></div>

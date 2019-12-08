@@ -1,9 +1,7 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
-import SimpleSnackbar from './Snackbar'
-import { Snackbar } from '@material-ui/core'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlus , faMinus } from '@fortawesome/free-solid-svg-icons'
+import SnackBar from '@material-ui/core/Snackbar'
+import IconButton from '@material-ui/core/IconButton'
+
 import '../styles/operations.css'
 
 class Operations extends Component {
@@ -14,17 +12,62 @@ class Operations extends Component {
             amount: 0,
             vendor: "",
             category: "",
-            date: ""
+            date: "",
+            snackBarOpen: false,
+            snackBarMsg: ''
         }
         this.updateText = this.updateText.bind(this)
     }
+
+
+    snackBarClose = (event) => {
+        this.setState({
+            snackBarOpen: false
+
+        })
+    }
+
+    calculateBalance =() => {
+        this.props.calculateBalance()
+    }
+
     addDeposite = () => {
-        this.props.addDeposite(this.state.amount, this.state.vendor, this.state.category)
-        
+        if (this.state.amount === 0 || this.state.vendor === "" || this.state.category === "" || this.state.date === "") {
+            this.setState({
+                snackBarOpen: true,
+                snackBarMsg: "All fields are required"
+            })
+            
+        } else {
+            this.props.addDeposite(this.state.amount, this.state.vendor, this.state.category,this.state.date)
+            this.setState({
+                snackBarOpen: true,
+                snackBarMsg: "Deposite added succesfully"
+            })
+        }
+
     }
 
     addWithdraw = () => {
-        this.props.addWithdraw(this.state.amount, this.state.vendor, this.state.category)
+        
+        if (this.state.amount === 0 || this.state.vendor === "" || this.state.category === "" || this.state.date === "") {
+            this.setState({
+                snackBarOpen: true,
+                snackBarMsg: "All fields are required"
+            })
+            
+        }else if(this.state.amount <= 0) {
+            this.setState({
+                snackBarOpen: true,
+                snackBarMsg: "Amount must be a positive number"
+            })
+        } else {
+            this.props.addWithdraw(this.state.amount, this.state.vendor, this.state.category,this.state.date)
+            this.setState({
+                snackBarOpen: true,
+                snackBarMsg: "Withdraw added succesfully"
+            })
+        }
     }
 
     updateText = (event) => {
@@ -38,25 +81,41 @@ class Operations extends Component {
     }
 
 
-
-
-
-
     render() {
-
+        
         return (
             <div className="operations">
-                
+                <h3>Insert a transaction:</h3>
                 <div>
-                <input type="number" className="input"  name="amount" placeholder="Amount" onChange={this.updateText} />
-                </div> <div>
-                <input type="text" className="input"  name="vendor" placeholder="Vendor" onChange={this.updateText} />
-                </div> <div>
-                <input type="text" className="input"  name="category" placeholder="Category" onChange={this.updateText} />
+                    <input type="date" className="input" name="date" placeholder="Date" onChange={this.updateText} />
                 </div>
-                <Link to="/"><button className="expensebtn deposite" onClick={this.addDeposite}>Deposite</button></Link>
-                <Link to="/"><button className="expensebtn withdraw" onClick={this.addWithdraw}>Withdraw</button></Link>
-                
+                <div>
+                    <input type="number" className="input" name="amount" placeholder="Amount" onChange={this.updateText} />
+                </div> <div>
+                    <input type="text" className="input" name="vendor" placeholder="Vendor" onChange={this.updateText} />
+                </div> <div>
+                    <input type="text" className="input" name="category" placeholder="Category" onChange={this.updateText} />
+                </div>
+
+                <button className="expensebtn deposite" onClick={this.addDeposite}>Deposite</button>
+
+                <button className="expensebtn withdraw" onClick={this.addWithdraw}>Withdraw</button>
+                <SnackBar
+                    anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+                    open={this.state.snackBarOpen}
+                    autoHideDuration={3000}
+                    onClose={this.snackBarClose}
+                    message={<span id="message-id">{this.state.snackBarMsg}</span>}
+                    action={[
+                        <IconButton
+                            key="close"
+                            arial-lable="Close"
+                            color="inherit"
+                            onClick={this.snackBarClose}>
+                            x
+                        </IconButton>
+                    ]}
+                />
             </div>
 
         )
