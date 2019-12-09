@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Transaction from './Transaction'
 import '../styles/transactions.css'
+
 class Transactions extends Component {
     constructor() {
         super()
@@ -24,6 +25,7 @@ class Transactions extends Component {
         
         return(
             <div >
+                 
                 <div>
                     <h4>Filter by month</h4>
                     <input type="date" className="input" name="date" placeholder="Date" onChange={this.updateText} />
@@ -32,6 +34,7 @@ class Transactions extends Component {
                 <div className="transactions" key={t._id}> <Transaction data={t}  deleteTransaction={this.props.deleteTransaction}/> </div>) : this.props.transactions.filter(t => t.date.substring(5,7) === this.state.date.substring(5,7)).map( (t) =>  
                 <div className="transactions" key={t._id}> <Transaction data={t}  deleteTransaction={this.props.deleteTransaction}/> </div>
                     )}
+                    
             </div>
         )
     }

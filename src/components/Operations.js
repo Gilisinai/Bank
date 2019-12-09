@@ -19,6 +19,12 @@ class Operations extends Component {
         this.updateText = this.updateText.bind(this)
     }
 
+    clearState = () => {
+        this.setState({
+            amount:0,
+            
+        })
+    }
 
     snackBarClose = (event) => {
         this.setState({
@@ -40,12 +46,13 @@ class Operations extends Component {
             
         } else {
             this.props.addDeposite(this.state.amount, this.state.vendor, this.state.category,this.state.date)
+            this.clearState()
             this.setState({
                 snackBarOpen: true,
                 snackBarMsg: "Deposite added succesfully"
             })
         }
-
+        
     }
 
     addWithdraw = () => {
@@ -58,7 +65,7 @@ class Operations extends Component {
             
         }else if(this.state.amount <= 0) {
             this.setState({
-                snackBarOpen: true,
+                snackBarOpen: "error",
                 snackBarMsg: "Amount must be a positive number"
             })
         } else {
@@ -82,7 +89,7 @@ class Operations extends Component {
 
 
     render() {
-        
+        const snackBarMsg = this.state.snackBarMsg
         return (
             <div className="operations">
                 <h3>Insert a transaction:</h3>
@@ -97,9 +104,9 @@ class Operations extends Component {
                     <input type="text" className="input" name="category" placeholder="Category" onChange={this.updateText} />
                 </div>
 
-                <button className="expensebtn deposite" onClick={this.addDeposite}>Deposite</button>
+                <button  className={`expensebtn deposite ${snackBarMsg === "All fields are required" ? "animate-no" : ""}`} onClick={this.addDeposite}>Deposite</button>
 
-                <button className="expensebtn withdraw" onClick={this.addWithdraw}>Withdraw</button>
+                <button  className={`expensebtn withdraw ${snackBarMsg === "All fields are required" ? "animate-no" : ""}`} onClick={this.addWithdraw}>Withdraw</button>
                 <SnackBar
                     anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
                     open={this.state.snackBarOpen}
