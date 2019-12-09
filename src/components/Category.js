@@ -34,6 +34,7 @@ class Category extends Component {
 
     render() {
         let category = this.sortByCategory()
+        console.log(category)
         return (
 
 
