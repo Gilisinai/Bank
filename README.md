@@ -4,7 +4,7 @@ Bank is an expense tracking application for user to track his monthly expenses.
 
 
 ## Table Of Contents
-- [OurExpenses](#ourexpenses)
+- [Bank](#bank)
   * [Running the project](#running-the-project)
   * [Screenshots](#screenshots)
     + [Expense-List](#expense-list)
@@ -29,14 +29,14 @@ An overview of all your expenses sorted by date. Choosing a month will show the 
 <p align="center"><img src="assets/bank-home.PNG" width="300" /></p>
 
 ### Add Expense
-Fill out the inputs and then click *add* to add a new expense.
+Fill out the inputs and then click *Deposite* or *Withdraw* to add a new expense.
 <p align="center"><img src="assets/bank-action.PNG" width="300" /></p>
 
 ### Category Breakdown
-View a report of the totals by category per month.
+View a report of the totals by category.
 <p align="center"><img src="assets/bank-overview.PNG" width="300" /></p>
 
-### Category Breakdown
+
 Expanded each category to show expenses of the relevant category
 <p align="center"><img src="assets/bank-overview-open.PNG" width="300" /></p>
 
