@@ -9,7 +9,6 @@ Bank is an expense tracking application for user to track his monthly expenses.
   * [Screenshots](#screenshots)
     + [Expense-List](#expense-list)
     + [Add Expense](#add-expense)
-    + [Reports](#reports)
     + [Category Breakdown](#category-breakdown)
   * [Tech Stack](#tech-stack)
   * [TODO](#todo)
